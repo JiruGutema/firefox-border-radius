@@ -1,4 +1,5 @@
 # firefox-border-radius
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/9a6a7ed9-ccbb-4c5f-b12d-a20e7a8bb011" />
 
 One command to set the corner radius of (almost) everything in Firefox: tabs,
 toolbar buttons, the URL bar and its dropdown, menus, panels, the sidebar, and
