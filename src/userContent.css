@@ -1,0 +1,35 @@
+/*
+ * firefox-border-radius: internal pages (about:preferences, about:addons,
+ * about:newtab, about:config, ...). These are web content, so userChrome.css
+ * does not reach them.
+ */
+@-moz-document url-prefix("about:"), url-prefix("chrome:") {
+  :root {
+    --border-radius-xsmall: @RADIUS@ !important;
+    --border-radius-small: @RADIUS@ !important;
+    --border-radius-medium: @RADIUS@ !important;
+    --border-radius-large: @RADIUS@ !important;
+    --border-radius-xlarge: @RADIUS@ !important;
+
+    --button-border-radius: @RADIUS@ !important;
+    --panel-border-radius: @RADIUS@ !important;
+    --popup-border-radius: @RADIUS@ !important;
+    --card-border-radius: @RADIUS@ !important;
+  }
+
+  /* Settings / Add-ons sidebar; the nav widgets re-declare these on their own hosts. */
+  :root,
+  moz-page-nav,
+  moz-page-nav-button {
+    --page-nav-button-border-radius: @RADIUS@ !important;
+    --page-nav-button-border-radius-focused: @RADIUS@ !important;
+  }
+
+  .card,
+  .sidebar-item,
+  .search-container,
+  input[type="search"],
+  .category {
+    border-radius: @RADIUS@ !important;
+  }
+}

@@ -1,0 +1,48 @@
+/*
+ * firefox-border-radius: browser UI (tabs, toolbar, URL bar, menus, panels)
+ *
+ * Modern Firefox derives nearly every rounded corner from a handful of design
+ * tokens defined on :root, and shadow-DOM widgets inherit them. Overriding the
+ * tokens is far more reliable than chasing individual selectors, which Mozilla
+ * renames often (#urlbar-background, .panel-arrowcontent and
+ * --arrowpanel-border-radius are all gone).
+ *
+ * --border-radius-circle is left alone on purpose so things that are meant to
+ * be round (avatars, badges, toggle knobs) stay round.
+ */
+:root {
+  --border-radius-xsmall: @RADIUS@ !important;
+  --border-radius-small: @RADIUS@ !important;
+  --border-radius-medium: @RADIUS@ !important;
+  --border-radius-large: @RADIUS@ !important;
+  --border-radius-xlarge: @RADIUS@ !important;
+
+  --button-border-radius: @RADIUS@ !important;
+  --toolbarbutton-border-radius: @RADIUS@ !important;
+  --tab-border-radius: @RADIUS@ !important;
+  --urlbar-border-radius: @RADIUS@ !important;
+  --panel-border-radius: @RADIUS@ !important;
+  --popup-border-radius: @RADIUS@ !important;
+  --panel-menuitem-border-radius: @RADIUS@ !important;
+  --menuitem-border-radius: @RADIUS@ !important;
+  --card-border-radius: @RADIUS@ !important;
+}
+
+/* The URL bar dropdown re-declares its radius on its own host element. */
+:root,
+.urlbar,
+#urlbar,
+#searchbar {
+  --urlbarview-border-radius: @RADIUS@ !important;
+}
+
+/* Sidebar panel corners use their own per-corner variables. */
+#sidebar-box {
+  --sidebar-box-start-start-radius: @RADIUS@ !important;
+  --sidebar-box-start-end-radius: @RADIUS@ !important;
+}
+
+/* Belt and braces for the elements people notice most. */
+.tab-background {
+  border-radius: @RADIUS@ !important;
+}
