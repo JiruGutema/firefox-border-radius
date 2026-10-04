@@ -105,3 +105,7 @@ so things meant to be round (avatars, badges, toggle knobs) stay round.
 
 Edit `src/userChrome.css` or `src/userContent.css` to add your own rules, then
 re-run `./install.sh`. `@RADIUS@` is replaced with the chosen value.
+
+## License
+
+[MIT](LICENSE)
