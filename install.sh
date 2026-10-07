@@ -86,6 +86,10 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*) die "on Windows, run install.ps1 instead (see README)" ;;
+esac
+
 if [ "$mode" = "install" ]; then
   r="${radius%px}"
   printf '%s' "$r" | grep -Eq '^[0-9]+(\.[0-9]+)?$' \

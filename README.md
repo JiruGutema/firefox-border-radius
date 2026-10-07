@@ -44,6 +44,23 @@ Then quit Firefox completely and start it again.
 
 Re-run with a different `-r` at any time.
 
+### Windows
+
+Use `install.ps1` from PowerShell. It works the same way and takes the same
+options in PowerShell style (`-Radius 8`, `-All`, `-Uninstall`, ...; `-r 8`,
+`-a`, `-u` also work):
+
+```powershell
+git clone https://github.com/JiruGutema/firefox-border-radius.git
+cd firefox-border-radius
+powershell -ExecutionPolicy Bypass -File .\install.ps1            # 4px everywhere
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Radius 8
+```
+
+`-ExecutionPolicy Bypass` is needed because Windows blocks unsigned scripts by
+default. It only applies to that one run. Windows PowerShell 5.1 (built in)
+and PowerShell 7 both work.
+
 ## Supported installs
 
 | Install                          | Profiles in                                        |
@@ -52,12 +69,12 @@ Re-run with a different `-r` at any time.
 | Snap                             | `~/snap/firefox/common/.mozilla/firefox`           |
 | Flatpak                          | `~/.var/app/org.mozilla.firefox/...`               |
 | macOS                            | `~/Library/Application Support/Firefox`            |
-| LibreWolf, Floorp, Zen, Waterfox | their own folders (native and Flatpak)             |
+| Windows (installer or Store)     | `%APPDATA%\Mozilla\Firefox`                        |
+| LibreWolf, Floorp, Zen, Waterfox | their own folders (Linux, macOS and Windows)       |
 
 Each profile is labelled with the install it belongs to, so you can tell an
 apt profile from a Snap one. Profiles left behind by an uninstalled package
-are still listed and marked `app not found`. Windows isn't supported by
-`install.sh`; copy the files in `src/` by hand and replace `@RADIUS@`.
+are still listed and marked `app not found`.
 
 ## What it does
 
@@ -65,7 +82,8 @@ For each profile you select:
 
 1. **Replaces `chrome/`.** If the folder holds anything besides files this
    script wrote (an old theme, a copy-pasted `userChrome.css`, ...), it is moved
-   to `~/.local/share/firefox-border-radius/backups/<profile>-<time>/`. The new
+   to `~/.local/share/firefox-border-radius/backups/<profile>-<time>/`
+   (`%LOCALAPPDATA%\firefox-border-radius\backups\` on Windows). The new
    `chrome/` contains only `userChrome.css` and `userContent.css`.
 2. **Enables custom stylesheets** by adding
    `toolkit.legacyUserProfileCustomizations.stylesheets` to the profile's
@@ -83,6 +101,9 @@ For each profile you select:
 -y, --yes            Don't ask for confirmation
 ```
 
+On Windows these are `-Radius`, `-All`, `-ProfileDir DIR,DIR`, `-List`,
+`-Uninstall`, `-NoContent` and `-Yes` (`.\install.ps1 -Help` lists them).
+
 Your profile folder is listed in `about:support` under **Profile Folder**.
 
 ## Uninstall
@@ -90,6 +111,8 @@ Your profile folder is listed in `about:support` under **Profile Folder**.
 ```sh
 ./install.sh --uninstall
 ```
+
+On Windows: `powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall`.
 
 This removes the two CSS files and the `user.js` line it added. If an older
 `chrome/` folder was backed up, the script prints where it is so you can move
@@ -105,7 +128,7 @@ working when Mozilla renames elements. `--border-radius-circle` is left alone,
 so things meant to be round (avatars, badges, toggle knobs) stay round.
 
 Edit `src/userChrome.css` or `src/userContent.css` to add your own rules, then
-re-run `./install.sh`. `@RADIUS@` is replaced with the chosen value.
+re-run the installer. `@RADIUS@` is replaced with the chosen value.
 
 ## License
 
